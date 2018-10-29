@@ -1,0 +1,52 @@
+def checker(symbolString):
+    s = Stack()
+    balanced = True
+    index = 0
+    while index < len(symbolString) and balanced:
+        symbol = symbolString[index]
+        if symbol == "(":
+            s.push(symbol)
+        else:
+            if s.isEmpty():
+                balanced = False
+            else:
+                s.pop()
+
+        index = index + 1
+
+    if balanced and s.isEmpty():
+        print("balanced")
+    else:
+        print ("unbalanced")
+
+class Stack:
+    def __init__(self):
+        self.stack = []
+
+    def pop(self):
+        if self.isEmpty():
+            return None
+        else:
+            return self.stack.pop()
+
+    def push(self, val):
+        return self.stack.append(val)
+
+    def peak(self):
+        if self.isEmpty():
+            return None
+        else:
+            return self.stack[-1]
+
+    def size(self):
+        return len(self.stack)
+
+    def isEmpty(self):
+        return self.size() == 0
+
+    def display(self):
+        print self.stack
+
+def main():
+    checker('((()()()))')
+main()
