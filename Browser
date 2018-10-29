@@ -1,63 +1,58 @@
-class MyStack:
+class Browser:
     def __init__(self):
-        self.stack = []
-    def pop(self):
-        if self.is_empty():
-            return None
+        self.__backh = Stack()
+        self.__forwardh = Stack()
+        self.__curr = ""
+    def back(self):
+        if self.__backh.isEmpty():
+            print "blank"
         else:
-            return self.stack.pop()
-    def push(self,val):
-        return self.stack.append(val)
-
-    def peak(self):
-        if self.is_empty():
-            return None
+            print "<<-"
+            self.__forwardh.push(self.__curr)
+            self.__curr = self.__backh.pop()
+    def fwd(self):
+        if self.__forwardh.isEmpty():
+            print "blank"
         else:
-            return self.stack[-1]
-    def size(self):
-        return len(self.stack)
-    def is_empty(self):
-        return self.size() == 0
+            self.__backh.push(self.__curr)
+            print "->>"
+            self.__curr = self.__forwardh.pop()
 
-class BrowserHistory:
-    def _init_ (self, backH, fwdH, current):
-        self.__backH = MyStack()
-        self.__fwdH = MyStack()
-        self.__current = ""
+    def getcurr(self):
+        print self.__curr
 
     def open(self, url):
-        if __current != "":
-            __backH.push(__current)
-            __fwdH = MyStack
-            __current = url
-
-    def back():
-        if __backH is Empty():
-            print("no history")
-        else:
-            fwdH.push(__current)
-            __current = __backH.pop()
-
-    def forward():
-        if __fwdH is Empty():
-            print("no way")
-        else:
-            backH.push(__current)
-            __current = __fwdH.pop()
-
-    def printcurrent(self):
-        print self.__current
+        if self.__curr != "":
+            self.__backh.push(self.__curr)
+            self.__forwardh = Stack()
+        self.__curr = url
         
+        
+        
+        
+class Stack:
+    def __init__(self):
+        self.items = []
+    def isEmpty(self):
+        return self.items == []
+    def push(self, item):
+        self.items.append(item)
+    def pop(self):
+        return self.items.pop()
+    def peek(self):
+        return self.items[len(self.items) - 1]
+    def size(self):
+        return len(self.items)
+
+
 def main():
-    bh = BrowserHistory()
-    bh.open("")
-    bh.open("")
-    bh.open("")
-    bh.printcurrent()
-    bh.back()
-    bh.printcurrent()
-    bh.forward()
-    bh.printcurrent()
-    bh.forward()
-    bh.printcurrent()
+    func = Browser()
+    func.open("url1")
+    func.open("url3")
+    func.open("url2")
+    func.getcurr()
+    func.back()
+    func.getcurr()
+    func.fwd()
+    func.getcurr()
 main()
